@@ -12,8 +12,11 @@ public class Painel extends JPanel implements  Runnable{
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
 	final int FPS = 60;
+	public static Som music = new Som ();
+	public static Som se = new Som ();
 	Thread gameThread;
 	Gerenciador pm;
+	
 	
 	public Painel () {
 		
@@ -31,6 +34,9 @@ public class Painel extends JPanel implements  Runnable{
 	public void launchGame() {
 		gameThread = new Thread(this);
 		gameThread.start();
+		
+		music.play (0, true);
+		music.loop();
 	}
 	
 	@Override
@@ -59,7 +65,7 @@ public class Painel extends JPanel implements  Runnable{
 	}
 	private void update() {
 		
-		if(Movimento.pausePressed == false) {
+		if(Movimento.pausePressed == false && pm.gameOver == false) {
 		   pm.update();
 		
 		}

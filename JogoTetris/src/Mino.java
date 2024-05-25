@@ -2,6 +2,7 @@
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.lang.annotation.Target;
 
 public class Mino {
     
@@ -10,6 +11,9 @@ public class Mino {
     public int direction = 1;
     int autoDropCounter = 0;
     boolean leftCollision, rightCollision, bottomCollision;
+    public boolean active = true;
+    public boolean deactivating;
+    int deactivateCounter = 0;
     
     public void create(Color c) {
         
@@ -52,6 +56,8 @@ public class Mino {
     	rightCollision = false;
     	bottomCollision = false;
     	
+    	checkStaticBlockCollision ();
+    	
     	for (int i = 0; i < b.length; i++) {
     		if (b[i].x == Gerenciador.left_x) {
     			leftCollision = true;
@@ -75,6 +81,8 @@ public class Mino {
     	rightCollision = false;
     	bottomCollision = false;
     	
+    	checkStaticBlockCollision ();
+    	
     	for (int i = 0; i < b.length; i++) {
     		if (tempB[i].x < Gerenciador.left_x) {
     			leftCollision = true;
@@ -93,7 +101,37 @@ public class Mino {
     	}
     	
     }
+    private void checkStaticBlockCollision () {
+    	
+    	for (int i = 0; i < Gerenciador.staticBlocks.size(); i++) {
+    		
+    		int targetX = Gerenciador.staticBlocks.get(i).x;
+    		int targetY = Gerenciador.staticBlocks.get(i).y;
+    		
+    		    for(int ii = 0; ii < b.length; ii++) {
+                    if (b[ii].y + Block.SIZE == targetY && b[ii].x == targetX) {
+        	            bottomCollision = true;
+               }
+           }
+    		    for(int ii = 0; ii < b.length; ii++) {
+    	            if (b[ii].x + Block.SIZE == targetX && b[ii].y == targetY) {
+    	        	    leftCollision = true;
+    	        }
+    	   }
+    	         for(int ii = 0; ii < b.length; ii++) {
+                     if (b[ii].x + Block.SIZE == targetX && b[ii].y == targetY) {
+	                     rightCollision = true;
+                }
+           }
+     }
+    	         
+}
+    		    
     public void update() {
+    	
+    	if (deactivating) {
+    		deactivating ();
+    	}
     	
     	//movimento das peças
     	if (Movimento.upPressed) {
@@ -105,6 +143,7 @@ public class Mino {
     		case 4: getDirection1(); break;
     		}
     		Movimento.upPressed = false;
+    		Painel.se.play(3, false);
     	}
     	
     	checkMovementCollision ();
@@ -147,7 +186,13 @@ public class Mino {
     		
     	}
     	
-        
+        if (bottomCollision) {
+        	if (deactivating == false) {
+        		Painel.se.play(4, false);
+        	}
+        	deactivating = true;
+        }
+        else {
     	autoDropCounter++;
     	if(autoDropCounter == Gerenciador.dropInterval) {
     		
@@ -156,7 +201,23 @@ public class Mino {
     		b[2].y += Block.SIZE;
     		b[3].y += Block.SIZE;
     		autoDropCounter = 0;
+    	   }
     	}
+    }
+    private void deactivating () {
+    	
+    	deactivateCounter++;
+    	
+    	if (deactivateCounter == 45) {
+    		
+    		deactivateCounter = 0;
+    		checkMovementCollision ();
+    		
+    		if (bottomCollision) {
+    			active = false;
+    		}
+    	}
+    	
     }
     public void draw(Graphics2D g2) {
         

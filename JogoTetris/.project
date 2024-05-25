@@ -14,4 +14,31 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Som/Sam River - Korobeiniki - Piano Version.mp3</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/TI/Tetris/Sam%20River%20-%20Korobeiniki%20-%20Piano%20Version.mp3</locationURI>
+		</link>
+		<link>
+			<name>Som/delete line.wav</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/TI/Tetris/delete%20line.wav</locationURI>
+		</link>
+		<link>
+			<name>Som/gameover.wav</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/TI/Tetris/gameover.wav</locationURI>
+		</link>
+		<link>
+			<name>Som/rotation.wav</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/TI/Tetris/rotation.wav</locationURI>
+		</link>
+		<link>
+			<name>Som/touch floor.wav</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/TI/Tetris/touch%20floor.wav</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
