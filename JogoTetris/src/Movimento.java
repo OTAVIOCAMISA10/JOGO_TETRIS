@@ -5,6 +5,10 @@ public class Movimento implements KeyListener {
 	
 	public static boolean upPressed, downPressed, leftPressed, rightPressed, pausePressed;
 
+	public Movimento(Gerenciador gm) {
+		
+	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {}
 
